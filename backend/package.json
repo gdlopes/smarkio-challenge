@@ -1,0 +1,22 @@
+{
+  "name": "smarkio-challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gdlopes/smarkio-challenge.git",
+  "author": "gdlopes <gustavodomlopes@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.13"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^5.5.1"
+  }
+}
