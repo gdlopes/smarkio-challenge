@@ -5,7 +5,8 @@ class Comment extends Model {
   static init(sequelize) {
     super.init(
       {
-        comment: Sequelize.STRING
+        comment: Sequelize.STRING,
+        file_name: Sequelize.STRING
       },
       {
         sequelize

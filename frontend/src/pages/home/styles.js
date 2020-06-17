@@ -12,6 +12,11 @@ export const InputComment = styled.div`
   width: 100%;
   max-width: 50%;
 
+  textarea {
+    height: 200px;
+    border-radius: 5px;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -51,5 +56,9 @@ export const ReadComment = styled.div`
       margin-top: 5px;
       width: 100px;
     }
+  }
+
+  audio {
+    display: none;
   }
 `;

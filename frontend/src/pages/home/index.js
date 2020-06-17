@@ -5,43 +5,38 @@ import api from '../../services/api';
 import { Container, InputComment, ReadComment } from './styles';
 
 const Home = () => {
-  const [newComment, setNewComments] = useState([]);
+  const [newComment, setNewComments] = useState('');
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    async function loadComments() {
-      const response = await api.get('comments');
-
+    api.get('comments').then(response => {
       setComments(response.data);
-    }
-
-    loadComments();
+    });
   }, []);
 
   async function handleAddComment(event) {
     event.preventDefault();
 
-    if (!newComment) return;
+    const body = { comment: newComment };
+    const response = await api.post('comments', body);
 
-    try {
-      const body = { comment: newComment };
-      const response = await api.post('comments', body);
+    const comment = response.data;
 
-      const comment = response.data;
+    setComments([...comments, comment]);
+    setNewComments('');
+  }
 
-      setComments([...comments, comment]);
-      setNewComments('');
-    } catch (error) {
-      console.log(error);
-    }
+  async function handlePlayAudio(comment) {
+    const audio = document.getElementById(`${comment.id}`);
+    audio.play();
   }
 
   return (
     <Container>
       <InputComment>
-        <form onSubmit={handleAddComment}>
+        <form onSubmit={e => handleAddComment(e)}>
           <h1>Comentários</h1>
-          <input
+          <textarea
             value={newComment}
             onChange={e => setNewComments(e.target.value)}
             placeholder="Digite algum texto aqui..."
@@ -56,7 +51,12 @@ const Home = () => {
           {comments.map(item => (
             <div key={item.id}>
               <p>{item.comment}</p>
-              <button>Ouvir</button>
+
+              <audio controls="controls" id={item.id}>
+                <source src={`./tmp/${item.file_name}.wav`} type="audio/wav" />
+              </audio>
+
+              <button onClick={() => handlePlayAudio(item)}>Ouvir</button>
             </div>
           ))}
         </div>
